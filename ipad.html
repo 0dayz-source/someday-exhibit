@@ -85,6 +85,9 @@ body{background:var(--table);color:var(--ivory);font-family:var(--sans);margin:0
 .lock .hint{margin-top:auto;margin-bottom:28px;font-size:12px;opacity:.6}
 .shop{position:absolute;inset:0;z-index:23;background:#fff;color:#111;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
 .shop.on{transform:none}
+/* 화면 아래에 숨어 있는 결제창이 소수점 픽셀 때문에 폰 하단에 1px 흰 줄로 보였다 — 닫혀 있을 땐 숨기고, 내려가는 애니메이션이 끝난 뒤에 숨긴다 */
+.shop{visibility:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),visibility 0s .35s}
+.shop.on{visibility:visible;transition:transform .35s cubic-bezier(.2,.8,.2,1),visibility 0s}
 .shop header{display:flex;align-items:center;justify-content:space-between;padding:52px 18px 12px;border-bottom:1px solid #eee;font-size:13px;color:#666}
 .shop .x{appearance:none;border:0;background:#f1f1f1;width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer}
 .shop .body{flex:1;overflow:auto;padding:16px 18px}
@@ -142,7 +145,7 @@ body{background:var(--table);color:var(--ivory);font-family:var(--sans);margin:0
 .reset:hover{color:var(--ivory)}
 /* 띵동 팁 — 넓은 화면에선 폰 화면 밖, 안내 패널 아래(.tip-slot)로 옮긴다. 좁은 화면(안내 패널이 숨는 폰)에선 앱 안 그대로. */
 .guide{position:relative}
-.guide .reset{margin-bottom:-10px}   /* 로고 위, 왼쪽 정렬 (패널 맨 위 흐름) */
+.guide .reset{margin-bottom:10px}   /* 로고 위, 왼쪽 정렬 — 로고와 간격을 넉넉히 */
 .tip.in-guide{position:static;left:auto;right:auto;bottom:auto;z-index:auto;pointer-events:auto;align-items:flex-end}
 .tip.in-guide .tip-b{font-size:13.5px;box-shadow:0 10px 28px rgba(0,0,0,.35),inset 0 0 0 1.5px rgba(249,214,148,.35)}
 .tip.in-guide .tip-x{display:none}
