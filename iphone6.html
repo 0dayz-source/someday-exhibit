@@ -1747,6 +1747,16 @@ button:focus-visible,.jump:focus-visible{outline:2px solid var(--gold);outline-o
     e.stopPropagation();
     tip.classList.add("min");
   });
+/* 말풍선이 아래 버튼을 가리지 않게 — 화면을 처음 터치하면(말풍선·띵동 제외) 접는다. 그 터치는 그대로 버튼에 간다.
+   말풍선 본문을 누르면 접으면서 그 자리 아래 요소를 대신 눌러 준다(가려진 버튼도 한 번에 눌린다). */
+app.addEventListener('pointerdown', function (e) { if (!tip.classList.contains('min') && !tip.contains(e.target)) tip.classList.add('min'); }, true);
+tipB.addEventListener('click', function (e) {
+  if (e.target.closest('.tip-x')) return;
+  e.stopPropagation(); tip.classList.add('min');
+  tip.style.visibility = 'hidden'; var under = document.elementFromPoint(e.clientX, e.clientY); tip.style.visibility = '';
+  if (under && !tip.contains(under)) under.click();
+});
+
   $(".tip-av").addEventListener("click", (e) => {
     e.stopPropagation();
     if (tip.classList.contains("min")) {

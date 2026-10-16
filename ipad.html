@@ -1129,6 +1129,16 @@ function onHome(){ const i=nextTask(); $$('[data-act^="05:"],[data-tag="cake"]')
 const tip=$('.tip'), tipB=$('.tip-b'); function setTip(){ $('.tip-t').textContent= cur==='05'?onHome() : (cur==='07'&&dday)?'오늘 밤이에요. 21:30 마지막 일정을 눌러 하루를 마무리해 보세요.' : TIPS[cur][0]; tip.classList.remove('min'); tipB.classList.remove('pop'); void tipB.offsetWidth; tipB.classList.add('pop'); }
 $$('.screen').forEach(sc=>sc.addEventListener('scroll',()=>{ if(sc.scrollTop>120&&!tip.classList.contains('min')&&!tip.dataset.pinned) tip.classList.add('min'); },{passive:true}));
 $('.tip-x').addEventListener('click',e=>{e.stopPropagation(); tip.classList.add('min');});
+/* 말풍선이 아래 버튼을 가리지 않게 — 화면을 처음 터치하면(말풍선·띵동 제외) 접는다. 그 터치는 그대로 버튼에 간다.
+   말풍선 본문을 누르면 접으면서 그 자리 아래 요소를 대신 눌러 준다(가려진 버튼도 한 번에 눌린다). */
+app.addEventListener('pointerdown', function (e) { if (!tip.classList.contains('min') && !tip.contains(e.target)) tip.classList.add('min'); }, true);
+tipB.addEventListener('click', function (e) {
+  if (e.target.closest('.tip-x')) return;
+  e.stopPropagation(); tip.classList.add('min');
+  tip.style.visibility = 'hidden'; var under = document.elementFromPoint(e.clientX, e.clientY); tip.style.visibility = '';
+  if (under && !tip.contains(under)) under.click();
+});
+
 $('.tip-av').addEventListener('click',e=>{e.stopPropagation(); if(tip.classList.contains('min')){tip.classList.remove('min'); tip.dataset.pinned='1'; setTimeout(()=>delete tip.dataset.pinned,1500); tipB.classList.remove('pop'); void tipB.offsetWidth; tipB.classList.add('pop');} else { const t=TIPS[cur]; const el=$('.tip-t'); el.textContent = el.textContent===t[0]&&t[1]?t[1]:t[0]; tipB.classList.remove('pop'); void tipB.offsetWidth; tipB.classList.add('pop'); }});
 $('.reset')?.addEventListener('click',()=>location.reload());
 // ---------- init ----------
