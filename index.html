@@ -1032,10 +1032,10 @@ const H={
  '05:0':()=>openSheet(`<h3>서프라이즈 봉인</h3><p class="sub">봉인 중에는 알림과 공유 링크에서 이벤트 이름이 "택배" 같은 평범한 이름으로 보여요. 여친 폰에 알림이 떠도 안심이에요.</p><div class="row"><span>봉인 유지하기</span><input id="seal2" class="toggle" type="checkbox" ${sealed?'checked':''} aria-label="봉인 유지하기"></div><div class="row"><span>알림 이름</span><small>택배 도착 안내</small></div>`),
  '05:1':()=>openModal(`<div class="card" style="background:#64090E;color:#FFF8EA;text-align:center;padding:30px 22px"><div style="font:400 38px var(--script);color:#F9D694">Happy Anniversary</div><div style="font:700 64px/1 var(--serif);letter-spacing:-.04em;margin:10px 0 6px">D-Day</div><p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(255,248,234,.75)">12월 19일 아침에 이 화면이 열려요.<br>오늘의 코스, 선물 타이밍, 축하 편지함이 한 장에 모여요.</p><div class="btns"><button type="button" class="btn" style="background:#F9D694;color:#64090E" id="close-m">미리보기 닫기</button></div></div>`),
  '05:2':()=>openSheet(`<h3>예산 · 지출 내역</h3><p class="sub">총 예산 150만 원 중 62%를 썼어요.</p><div class="row"><span>펜던트 목걸이 · 날짜 각인</span><small>320,000원</small></div><div class="row"><span>디너 코스 2인 · 창가석</span><small>360,000원</small></div><div class="row"><span>장미 꽃다발</span><small>120,000원</small></div><div class="row"><span>와인 페어링 2잔</span><small>130,000원</small></div><div class="row"><b>남은 예산</b><b style="color:#9C0612">570,000원</b></div>`),
- '05:3':e=>{const r=act('05',3); if(r.firstElementChild.contains(e.target)){setRowDone(r,r.dataset.done!=='1');return;} go('09');},
- '05:4':e=>{const r=act('05',4); if(r.firstElementChild.contains(e.target)){setRowDone(r,r.dataset.done!=='1');return;} go('02');},
- '05:5':e=>{const r=act('05',5); if(r.firstElementChild.contains(e.target)){setRowDone(r,r.dataset.done!=='1');return;} go('06');},
- '05:6':e=>{const r=act('05',6); r.classList.remove('pulse'); if(r.firstElementChild.contains(e.target)){setRowDone(r,r.dataset.done!=='1');return;} go('07');},
+ '05:3':e=>{const r=act('05',3); go('09');},
+ '05:4':e=>{const r=act('05',4); go('02');},
+ '05:5':e=>{const r=act('05',5); go('06');},
+ '05:6':e=>{const r=act('05',6); r.classList.remove('pulse'); go('07');},
  // 09 reservation
  '09:0':()=>back('05'),
  '09:1':e=>pickRadio(e,'날짜'),
@@ -1131,7 +1131,7 @@ function wireChat(){ const input=tagEl('chatinput',scr('02')), send=tagEl('chats
 // ---------- routing of plain links ----------
 const HREF={PrHome:'05',PrChat:'02',PrRing:'03',PrCommunity:'04',PrReserve:'09',PrLetters:'06',PrCourse:'07',PrRecall:'08',PrOnboard:'01',Archive:'08'};
 app.addEventListener('click',e=>{ if(suppress){suppress=false; if(e.target.closest('[data-act="04:3"]'))return;}
-  const fl=e.target.closest('[data-tag="cake"]'); if(fl&&!e.target.closest('.sheet,.modal')){ if(fl.firstElementChild.contains(e.target)){setRowDone(fl,fl.dataset.done!=='1');return;} placeSheet('플뢰르 한남','장미 꽃다발 · 44송이 · 레드 리본','12월 19일 18:00 픽업 예약','매일 10:00–20:00','레스토랑까지 도보 5분'); return; }
+  const fl=e.target.closest('[data-tag="cake"]'); if(fl&&!e.target.closest('.sheet,.modal')){ placeSheet('플뢰르 한남','장미 꽃다발 · 44송이 · 레드 리본','12월 19일 18:00 픽업 예약','매일 10:00–20:00','레스토랑까지 도보 5분'); return; }
   const a=e.target.closest('[data-act]');
   if(a&&app.contains(a)&&!e.target.closest('.sheet,.modal,.lock,.shop,.viewer')){ e.preventDefault(); const k=a.dataset.act; if(H[k])H[k](e); return; }
   const l=e.target.closest('.zoom a[href]'); if(l){ e.preventDefault(); const f=(l.getAttribute('href')||'').replace('.dc.html',''); if(HREF[f])go(HREF[f]); else if(/^https?:/.test(l.getAttribute('href')))H['03:4'](); else if(cur==='04') openSheet(`<h3>기념일 코스 후기</h3><p class="sub">직접 다녀온 커플들의 후기 128개 · 저장 많은 순</p><div class="row"><span>4주년, 한남에서 보낸 저녁</span><small>128 저장</small></div><div class="row"><span>루프탑 와인바 3주년</span><small>96 저장</small></div><div class="row"><span>한옥 다이닝 5주년</span><small>81 저장</small></div><div class="row"><span>창가석 코스 디너</span><small>64 저장</small></div><div class="row"><span>레터링 디저트</span><small>52 저장</small></div>`); else toast('이 화면은 시연 범위 밖이에요'); }

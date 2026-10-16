@@ -1244,35 +1244,19 @@ button:focus-visible,.jump:focus-visible{outline:2px solid var(--gold);outline-o
     "05:2": () => openSheet(`<h3>\uC608\uC0B0 \xB7 \uC9C0\uCD9C \uB0B4\uC5ED</h3><p class="sub">\uCD1D \uC608\uC0B0 150\uB9CC \uC6D0 \uC911 62%\uB97C \uC37C\uC5B4\uC694.</p><div class="row"><span>\uD39C\uB358\uD2B8 \uBAA9\uAC78\uC774 \xB7 \uB0A0\uC9DC \uAC01\uC778</span><small>320,000\uC6D0</small></div><div class="row"><span>\uB514\uB108 \uCF54\uC2A4 2\uC778 \xB7 \uCC3D\uAC00\uC11D</span><small>360,000\uC6D0</small></div><div class="row"><span>\uC7A5\uBBF8 \uAF43\uB2E4\uBC1C</span><small>120,000\uC6D0</small></div><div class="row"><span>\uC640\uC778 \uD398\uC5B4\uB9C1 2\uC794</span><small>130,000\uC6D0</small></div><div class="row"><b>\uB0A8\uC740 \uC608\uC0B0</b><b style="color:#9C0612">570,000\uC6D0</b></div>`),
     "05:3": (e) => {
       const r = act("05", 3);
-      if (r.firstElementChild.contains(e.target)) {
-        setRowDone(r, r.dataset.done !== "1");
-        return;
-      }
       go("09");
     },
     "05:4": (e) => {
       const r = act("05", 4);
-      if (r.firstElementChild.contains(e.target)) {
-        setRowDone(r, r.dataset.done !== "1");
-        return;
-      }
       go("02");
     },
     "05:5": (e) => {
       const r = act("05", 5);
-      if (r.firstElementChild.contains(e.target)) {
-        setRowDone(r, r.dataset.done !== "1");
-        return;
-      }
       go("06");
     },
     "05:6": (e) => {
       const r = act("05", 6);
       r.classList.remove("pulse");
-      if (r.firstElementChild.contains(e.target)) {
-        setRowDone(r, r.dataset.done !== "1");
-        return;
-      }
       go("07");
     },
     // 09 reservation
@@ -1687,10 +1671,6 @@ button:focus-visible,.jump:focus-visible{outline:2px solid var(--gold);outline-o
     }
     const fl = e.target.closest('[data-tag="cake"]');
     if (fl && !e.target.closest(".sheet,.modal")) {
-      if (fl.firstElementChild.contains(e.target)) {
-        setRowDone(fl, fl.dataset.done !== "1");
-        return;
-      }
       placeSheet("\uD50C\uB8B0\uB974 \uD55C\uB0A8", "\uC7A5\uBBF8 \uAF43\uB2E4\uBC1C \xB7 44\uC1A1\uC774 \xB7 \uB808\uB4DC \uB9AC\uBCF8", "12\uC6D4 19\uC77C 18:00 \uD53D\uC5C5 \uC608\uC57D", "\uB9E4\uC77C 10:00\u201320:00", "\uB808\uC2A4\uD1A0\uB791\uAE4C\uC9C0 \uB3C4\uBCF4 5\uBD84");
       return;
     }
