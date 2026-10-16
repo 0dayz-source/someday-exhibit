@@ -124,7 +124,7 @@ body{background:var(--table);color:var(--ivory);font-family:var(--sans);margin:0
    크기별 자간: 제목은 조이고, 본문은 0 근처, 작은 라벨은 살짝 연다. 한글은 어절 단위로만 줄바꿈. */
 .guide{--pre:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;width:340px;flex-shrink:0;display:flex;flex-direction:column;gap:24px;font-family:var(--pre);word-break:keep-all;overflow-wrap:break-word}
 .brand{display:flex;flex-direction:column;gap:6px}
-.brand span:first-child{display:block;width:240px;height:76px;background:var(--gold);-webkit-mask:var(--img-logo) left center/contain no-repeat;mask:var(--img-logo) left center/contain no-repeat}
+.brand span:first-child{display:block;width:170px;height:54px;background:var(--img-logo) left center/contain no-repeat}   /* 보내준 로고 원본(빨강) 그대로 */
 .brand span:last-child{font:700 22px/1.3 var(--pre);letter-spacing:-.025em;color:var(--ivory)}
 .guide p{margin:0;font:400 14px/1.7 var(--pre);color:var(--muted);letter-spacing:-.01em}
 .jumps{display:grid;grid-template-columns:1fr 1fr;gap:6px}
@@ -142,7 +142,7 @@ body{background:var(--table);color:var(--ivory);font-family:var(--sans);margin:0
 .reset:hover{color:var(--ivory)}
 /* 띵동 팁 — 넓은 화면에선 폰 화면 밖, 안내 패널 아래(.tip-slot)로 옮긴다. 좁은 화면(안내 패널이 숨는 폰)에선 앱 안 그대로. */
 .guide{position:relative}
-.guide .reset{position:absolute;top:6px;right:0}
+.guide .reset{margin-bottom:-10px}   /* 로고 위, 왼쪽 정렬 (패널 맨 위 흐름) */
 .tip.in-guide{position:static;left:auto;right:auto;bottom:auto;z-index:auto;pointer-events:auto;align-items:flex-end}
 .tip.in-guide .tip-b{font-size:13.5px;box-shadow:0 10px 28px rgba(0,0,0,.35),inset 0 0 0 1.5px rgba(249,214,148,.35)}
 .tip.in-guide .tip-x{display:none}
@@ -152,6 +152,7 @@ body{background:var(--table);color:var(--ivory);font-family:var(--sans);margin:0
 @media (min-width:641px){
   .stage{display:grid;grid-auto-flow:column;justify-content:center;align-content:center;align-items:end}
   .guide{order:-1}
+  .app{background:#0b0102}   /* 화면 층이 정수 픽셀로 붙으며 생기는 1px 미만 틈 — 베젤과 같은 색이라 안 보인다 */
   .guide{gap:clamp(12px,2.4vh,24px)}   /* 낮은 화면에서도 패널이 폰보다 길어지지 않게 — 그래야 팁 하단이 폰 하단과 맞는다 */
 }
 button:focus-visible,.jump:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
@@ -220,7 +221,7 @@ html,body{height:100%;height:100dvh;overscroll-behavior:none;-webkit-tap-highlig
 .jump{min-height:48px}
 .jump:hover{background:rgba(255,248,234,.06)}
 .jump.cur:hover{background:var(--gold)}
-@media (orientation:landscape){ .guide{gap:clamp(12px,2.6vh,28px)} .brand span:first-child{width:300px;height:95px} }
+@media (orientation:landscape){ .guide{gap:clamp(12px,2.6vh,28px)} .brand span:first-child{width:190px;height:60px} }
 </style>
 <div class="stage">
   <div class="device">
@@ -945,6 +946,9 @@ const act=(id,i)=>$(`[data-act="${id}:${i}"]`), tagEl=(t,root=document)=>$(`[dat
 let cur='01'; const hist=[];
 function fit(){const w=app.clientWidth; $$('.zoom').forEach(z=>z.style.setProperty('--z',w/1512)); app.style.setProperty('--navh',(w*300/1512)+'px');}
 addEventListener('resize',fit);
+
+/* 폰 폭이 소수점 픽셀이라 안쪽 화면(정수 픽셀)과 0.3~0.9px 틈이 생겨 바탕 아이보리가 흰 줄로 보였다 → 각 화면 바탕을 그 화면 배경색으로 */
+$$('.screen').forEach(sc=>{const r=sc.querySelector('.zoom>div'); if(r) sc.style.backgroundColor=getComputedStyle(r).backgroundColor;});
 function show(id,dir){
   if(id===cur) return; const a=scr(cur), b=scr(id);
   closeAll(); b.hidden=false; b.scrollTop=0;
