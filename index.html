@@ -106,6 +106,10 @@ body{background:var(--table);color:var(--ivory);font-family:var(--sans);margin:0
 .stamped{animation:stamp .45s cubic-bezier(.2,.8,.2,1)}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(156,6,18,.55)}100%{box-shadow:0 0 0 60px rgba(156,6,18,0)}}
 .pulse{animation:pulse 1s ease-out 2}
+/* 06 축하편지함 — 눌러야 할 곳(복사 버튼, 공유 칩)을 빨간 테두리로 알려줌 */
+[data-act="06:1"] button,.chip[data-share]{outline:3px solid #FF3B3B;outline-offset:4px;animation:cue 1.2s ease-in-out infinite}
+[data-act="06:1"] button{outline-width:8px;outline-offset:10px}
+@keyframes cue{50%{outline-color:rgba(255,59,59,.25)}}
 .shimmer{animation:shim 1s ease-in-out}
 @keyframes shim{0%,100%{opacity:1}50%{opacity:.35}}
 /* 띵동 tip bubble */
