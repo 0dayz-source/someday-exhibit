@@ -249,13 +249,13 @@ html,body{height:100%;height:100dvh;overscroll-behavior:none;-webkit-tap-highlig
 .jump:hover{background:rgba(255,248,234,.06)}
 .jump.cur:hover{background:var(--gold)}
 @media (orientation:landscape){ .guide{gap:clamp(12px,2.6vh,28px)} .brand span:first-child{width:190px;height:60px} }
-/* 가로 — '처음부터 다시'는 패널 위 여백으로 빼고(잘림 방지), 폰은 로고 윗선 ~ 팁 아랫선 높이를 꽉 채운다.
-   폰 높이 = 화면 − 위 56 − 아래 20 / 폰 폭 = (높이 − 베젤 60) × 1512/3270 + 좌우 베젤 24 */
+/* 가로 — 폰을 화면 높이 거의 끝까지 키우고, 안내 패널은 '처음부터 다시' 윗선 = 폰 윗선, 팁 아랫선 = 폰 아랫선.
+   폰 높이 = 화면 − 위 20 − 아래 12 / 폰 폭 = (높이 − 베젤 60) × 1512/3270 + 좌우 베젤 24 */
 @media (orientation:landscape){
-  .stage{padding-top:calc(env(safe-area-inset-top) + 56px);padding-bottom:calc(env(safe-area-inset-bottom) + 20px)}
-  .device{width:min(418px, calc((100dvh - 76px - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 60px) * 0.4624 + 24px), calc(100vw - 40px - 300px - 4vw))}
+  .stage{padding-top:calc(env(safe-area-inset-top) + 20px);padding-bottom:calc(env(safe-area-inset-bottom) + 12px)}
+  .device{width:min(460px, calc((100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 60px) * 0.4624 + 24px), calc(100vw - 40px - 300px - 4vw))}
   .guide{align-self:stretch;justify-content:space-between;gap:8px}
-  .guide .reset{position:absolute;top:-36px;left:0;margin:0}
+  .guide .reset{margin:0}
 }
 </style>
 <div class="stage">
